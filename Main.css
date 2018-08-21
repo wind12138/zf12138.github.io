@@ -94,6 +94,7 @@ body,html{
 	position: absolute;
 	bottom: 8%;
 	left: 20%;
+	overflow: hidden;
 }
 .pro_bar div{
 	border-radius: 50px;
@@ -104,6 +105,7 @@ body,html{
 	height: 100%;
 	background: #FFFFFF;
 	z-index: 1;
+	left: 0%;
 }
 .pro_bar div:last-child {
 	width: 100%;
@@ -133,19 +135,19 @@ body,html{
 	font-family: "华文行楷";
 	font-size: 10vw;
 	line-height: 75%;
-	left:100%;
+	left: 100%;
 	padding-left: 10%;
 	padding-right: 10%;
 }
 #h p:last-child{
 	font-size: 2vw;
-	right:60%;
+	left: -80%;
 	padding-left: 25%;
 	
 }
 
 #h1{
-	width: 20%;
+	width: 0%;
 	height: 10%;
 	position: absolute;
 	top:35%;
@@ -163,7 +165,7 @@ body,html{
 #h1 div img{
 	position:absolute;
 	top:25%;
-	left: 10%;
+	right:120%;
 	width: 10%;
 	hegith:50%;
 }
@@ -171,7 +173,7 @@ body,html{
 	color:white;
 	position: relative;
 	left: 30%;
-	top: 5%;
+	bottom: 75%;
 }
 #h1 div p:nth-child(2){
 	font-size: 0.5vw;
