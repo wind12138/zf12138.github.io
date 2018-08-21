@@ -34,9 +34,8 @@ function init_bannar(b_div,b_img) {
     all_h_0 = null;
     for(var s = 0;s<all_h[0].children.length;s++){
         var all_h_children = all_h[0].children[s];
-        var all_h_children_attr = parseInt(window.getComputedStyle(all_h_children,null)["left"]);
-        console.log(all_h_children_attr);
-        var all_h_children_animate = new css_animate(all_h_children,{opacity:1,left:-all_h_children_attr},6);
+        var all_left = css_animate_percent(true,all_h_children,"left");
+        var all_h_children_animate = new css_animate(all_h_children,{opacity:1,left:-all_left},1);
         if(s == 1){all_h_children_animate.css_animate_init();}
         else {all_h_children_animate.css_animate_init(function(){
 			setTimeout(function () {
@@ -60,30 +59,31 @@ function css_animate (name,attr,speed) {
 css_animate.prototype = {
     css_animate_init:function(end_function){
         var n = 0;
+        var string_p,init_value;
         var attr_length = Object.getOwnPropertyNames(this.attr).length;
         for(var p in this.attr){
-			var string_p = p.toString();
-			var inita_value = parseInt(window.getComputedStyle(this.name,null)[string_p]);
-			if(n == attr_length-1){
-                this.css_animate_strat(this.name,string_p,this.attr[p],this.speed,inita_value,end_function);
+			string_p = p.toString();
+			init_value = css_animate_percent(true,this.name,string_p);
+			if(n === attr_length-1){
+                this.css_animate_strat(this.name,string_p,this.attr[p],this.speed,init_value,end_function);
             }
             else {
-                this.css_animate_strat(this.name,string_p,this.attr[p],this.speed,inita_value);
+                this.css_animate_strat(this.name,string_p,this.attr[p],this.speed,init_value);
             }
 			n++;
         }
     },
-    /* BUG----opacity，transform使用end_function会出现bug-----目前弥补方式是将opacity和transform写在前面 */
+    /* BUG----opacity，transform使用end_function会出现bug-----目前弥补方式是将opacity和transform写在之前 */
     css_animate_strat:function(css_name,css_attr,css_time,css_speed,css_value,end_function){
         var t = 0;
         function css_strat(){
-            if(css_attr == "opacity"){
+            if(css_attr === "opacity"){
                 (css_value < 1)?t++:t--;
                 css_name.style[css_attr] = (css_value+t*0.01).toString();
                 if(css_value < 1){if(t*0.01 <= 1){requestAnimationFrame(css_strat);}else{end_function();}}
                 else{if(t*0.01 >= -1){requestAnimationFrame(css_strat);}else{end_function();}}
             }
-            if(css_attr == "transform"){
+            if(css_attr === "transform"){
                 (css_time>0)?t++:t--;
                 css_name.style[css_attr] = "rotate("+(-45 + t*css_speed).toString()+"deg)";
                 if(css_time>0){if(t*css_speed <= css_time){requestAnimationFrame(css_strat);}else{end_function();}}
@@ -91,7 +91,7 @@ css_animate.prototype = {
             }
             else{
                 (css_time>0)?t++:t--;
-                css_name.style[css_attr] = (css_value+t*css_speed).toString()+"px";
+                css_name.style[css_attr] = (css_value+t*css_speed).toString()+"%";
                 if(css_time>0){if(t*css_speed <= css_time){requestAnimationFrame(css_strat);}else{end_function();}}
                 else {if(t*css_speed >= css_time){requestAnimationFrame(css_strat);}else{end_function();}}
             }
@@ -103,11 +103,10 @@ css_animate.prototype = {
 /*编写轮播的动画*/
 function bannar_animate(ba_div,ba_img,fim,pro,all){
     var five_n = 0;
-    var pro_width = parseInt(document.defaultView.getComputedStyle(pro.parentNode,null)["width"]);
-    var pro_left = parseInt(document.defaultView.getComputedStyle(pro,null)["left"]);
-    var pro_time = pro_width/4;
+    var pro_width = css_animate_percent(false,pro.parentNode,"width");
+    var pro_left = css_animate_percent(false,pro,"left");
     pro_animate = null;
-    var pro_animate = new css_animate(pro,{left:pro_time},4);
+    var pro_animate = new css_animate(pro,{left:25},1);
     setTimeout (function(){
         pro_animate.css_animate_init(function(){
             if(pro_left > parseInt(pro_width*3/4)){
@@ -123,8 +122,7 @@ function bannar_animate(ba_div,ba_img,fim,pro,all){
 /*编写五个小的轮播*/
 function FB_animate(n,di,im,fim,pro,all){
     FB = null;
-    var FB_height = parseInt(window.getComputedStyle(di[n],null)["height"]);
-    var FB = new css_animate(di[n],{height:-FB_height},10);
+    var FB = new css_animate(di[n],{height:-100},1);
     setTimeout (function(){
         FB.css_animate_init(function(){
             if(n == di.length){
@@ -139,4 +137,22 @@ function FB_animate(n,di,im,fim,pro,all){
         n++;
         if(n<di.length)FB_animate(n,di,im,fim,pro,all);
     },500);
+}
+
+/*获取百分比*/
+function css_animate_percent(pd,name,attr){
+    var children_value = parseInt(window.getComputedStyle(name,null)[attr]);
+    var parent_value,parent_attr,return_value;
+    if(pd){
+        if(attr === "left" || attr ==="right")parent_attr = "width";
+        else if(attr === "top" || attr ==="bottom")parent_attr = "height";
+        else parent_attr = attr;
+        parent_value = parseInt(window.getComputedStyle(name.parentNode,null)[parent_attr]);
+        if(attr === "opacity" || attr === "transform") return_value = children_value;
+        else return_value = Math.round((children_value/parent_value)*100);
+    }
+    else {
+        return_value = children_value;
+    }
+    return return_value;
 }
