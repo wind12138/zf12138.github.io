@@ -18,11 +18,10 @@ window.onload = function() {
 
 /*初始化轮播图*/
 function init_bannar(b_div,b_img) {
-    var all_h_n = 1;
     var bannar_fistimg = document.querySelector("#bannar div img");
     var pro_bar = document.querySelector(".pro_bar div");
     var all_h = document.querySelectorAll(".all_h");
-    var Array_all_h_children_attr = [[[{transform:44,opacity:1}],[{opacity:1,left:-100},{opacity:1,left:80}],["opacity:0;transform:rotate(-45deg)","opacity:0;left:100%","opacity:0;left:-80%"]],[],[],[]];
+    var Array_all_h_children_attr = [[[{transform:44,opacity:1}],[{opacity:1,left:-100},{opacity:1,left:80}],["opacity:0;transform:rotate(-45deg)","opacity:0;left:100%","opacity:0;left:-80%"]],[[{opacity:1}],[{width:100},{left:50},{bottom:-110},{bottom:-110}],["opacity:0","width:0%","left:-20%","bottom:200%","bottom:200%"]],[[{opacity:1}],[{opacity:1,top:20},{opacity:1,top:20},{opacity:1,top:20},{opacity:1,top:20}],["opacity:0","opacity:0,top:-20%","opacity:0,top:-20%","opacity:0,top:-20%","opacity:0,top:-20%"]],[[{opacity:1}],[{opacity:1},{opacity:1}],["opacity:0","opacity:0","opacity:0"]]];
     for(var i = 0;i < 5;i++) {
         b_img[i].src = imgs[0].src;
         if(i != 0){
@@ -31,9 +30,11 @@ function init_bannar(b_div,b_img) {
         }
     }
     i = null;
-    var font_aniate_one = new font_animate(all_h[0],Array_all_h_children_attr,1,0);
-    font_aniate_one.create_aniamte();
-    bannar_animate(b_div,b_img,bannar_fistimg,pro_bar,all_h,Array_all_h_children_attr,all_h_n);
+    var pro_animate = new css_animate(pro_bar,{left:25},1);
+    var div_animate = new css_animate(b_div,{height:-100},1);
+    var font_animater = new font_animate(all_h[0],Array_all_h_children_attr,1,0);
+    font_animater.create_aniamte();
+    bannar_animate(div_animate,b_div,b_img,bannar_fistimg,pro_animate,all_h,font_animater);
 }
 
 /*编写对象封装动画效果*/
@@ -88,42 +89,41 @@ css_animate.prototype = {
 }
 
 /*编写轮播的动画*/
-function bannar_animate(ba_div,ba_img,fim,pro,all,A_a_c_a,all_n){
+function bannar_animate(di_an,ba_div,ba_img,fim,pr_an,all,fo_an){
     var five_n = 0;
-    pro_animate = null;
-    var pro_animate = new css_animate(pro,{left:25},1);
+    img_n = (img_n>=imgs.length?0:img_n);
+    fo_an.name = all[img_n];
+    fo_an.w = img_n;
     setTimeout (function(){
-        pro_animate.css_animate_init(function(){
-            var pro_width = css_animate_percent(false,pro.parentNode,"width");
-            var pro_left = css_animate_percent(false,pro,"left");
-            if(pro_left > parseInt(pro_width*3/4)){
-                pro.style["left"] = "0px";
+        pr_an.css_animate_init(function(){
+            var pro_width = css_animate_percent(false,pr_an.name.parentNode,"width");
+            var pro_left = css_animate_percent(false,pr_an.name,"left");
+            if(pro_left > parseInt(pro_width)){
+                pr_an.name.style["left"] = "0px";
             }
         });
-        if(img_n>=imgs.length){img_n = 0;}
-        fim.src = imgs[(img_n>imgs.length?0:img_n)].src;
-        all_n > 3?all_n = 0:all_n++;
-        FB_animate(five_n,ba_div,ba_img,fim,pro,all,A_a_c_a,all_n);
+        fim.src = imgs[img_n].src;
+        FB_animate(five_n,di_an,ba_div,ba_img,fim,pr_an,all,fo_an);
     },4000);
 }
 
 /*编写五个小的轮播*/
-function FB_animate(n,di,im,fim,pro,all,A_a_c_a,all_n){
-    FB = null;
-    var FB = new css_animate(di[n],{height:-100},1);
+function FB_animate(n,di_an,di,im,fim,pr_an,all,fo_an){
+    di_an.name = di[n];
     setTimeout (function(){
-        FB.css_animate_init(function(){
+        di_an.css_animate_init(function(){
             if(n == di.length){
                 for(var i = 0;i <= imgs.length;i++){
                     im[i].src = imgs[img_n].src;
                     di[i].style["height"] = "100%";
+					fo_an.create_aniamte();
                 }
                 img_n++;
-                bannar_animate(di,im,fim,pro,all,A_a_c_a,all_n);
+                bannar_animate(di_an,di,im,fim,pr_an,all,fo_an);
             }
         });
         n++;
-        if(n<di.length)FB_animate(n,di,im,fim,pro,all,A_a_c_a,all_n);
+        if(n<di.length)FB_animate(n,di_an,di,im,fim,pr_an,all,fo_an);
     },500);
 }
 
@@ -158,7 +158,6 @@ font_animate.prototype = {
         var name_children,name_animate,font_name,font_attr,font_w;
         font_name = this.name,font_attr = this.attr,font_w = this.w;
         var parent_animate = new css_animate(this.name,this.attr[this.w][0][0],this.speed);
-
         parent_animate.css_animate_init();
         parent_animate = null;
         for(var i = 0;i < this.name.children.length;i++){
@@ -172,7 +171,7 @@ font_animate.prototype = {
                         font_name.children[s].style.cssText = font_attr[font_w][2][s+1];
                     }
                     name_animate = null;
-                },2500);
+                },4000);
             });}
         }
     }
