@@ -30,6 +30,7 @@ function init_bannar(b_div,b_img) {
         }
     }
     i = null;
+    document.getElementById("alls").removeChild(document.getElementById("max"));
     var pro_animate = new css_animate(pro_bar,{left:25},1);
     var div_animate = new css_animate(b_div,{height:-100},1);
     var font_animater = new font_animate(all_h[0],Array_all_h_children_attr,1,0);
