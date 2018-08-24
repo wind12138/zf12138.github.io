@@ -65,18 +65,17 @@ css_animate.prototype = {
     css_animate_strat:function(css_name,css_attr,css_time,css_speed,css_value,end_function){
         var t = 0;
         function css_strat(){
-            if(css_attr === "opacity"){
-                (css_value < 1)?t++:t--;
-                css_name.style[css_attr] = (css_value+t*0.01).toString();
-                if(css_value < 1){if(t*0.01 <= 1){requestAnimationFrame(css_strat);}else{end_function();}}
-                else{if(t*0.01 >= -1){requestAnimationFrame(css_strat);}else{end_function();}}
-            }
+            if(css_attr === "opacity") {
+                (css_value < 1) ? t++ : t--;
+                css_name.style[css_attr] = (css_value + t * 0.01).toString();
+                if (css_value < 1) {if (t * 0.01 <= 1) requestAnimationFrame(css_strat);}
+                else {if (t * 0.01 >= -1) requestAnimationFrame(css_strat);}}
             if(css_attr === "transform"){
                 (css_time>0)?t++:t--;
                 css_name.style[css_attr] = "rotate("+(-45 + t*css_speed).toString()+"deg)";
-                if(css_time>0){if(t*css_speed <= css_time){requestAnimationFrame(css_strat);}else{end_function();}}
-                else {if(t*css_speed >= css_time){requestAnimationFrame(css_strat);}else{end_function();}}
-            }
+                if(css_time>0){if(t*css_speed <= css_time)requestAnimationFrame(css_strat);}
+                else {if(t*css_speed >= css_time)requestAnimationFrame(css_strat);}
+                }
             else{
                 (css_time>0)?t++:t--;
                 css_name.style[css_attr] = (css_value+t*css_speed).toString()+"%";
@@ -116,9 +115,9 @@ function FB_animate(n,di_an,di,im,fim,pr_an,all,fo_an){
                 for(var i = 0;i <= imgs.length;i++){
                     im[i].src = imgs[img_n].src;
                     di[i].style["height"] = "100%";
-					fo_an.create_aniamte();
                 }
                 img_n++;
+                fo_an.create_aniamte();
                 bannar_animate(di_an,di,im,fim,pr_an,all,fo_an);
             }
         });
@@ -155,24 +154,34 @@ function font_animate(name,attr,speed,w){
 
 font_animate.prototype = {
     create_aniamte:function(){
+        var i = 0;
         var name_children,name_animate,font_name,font_attr,font_w;
         font_name = this.name,font_attr = this.attr,font_w = this.w;
         var parent_animate = new css_animate(this.name,this.attr[this.w][0][0],this.speed);
         parent_animate.css_animate_init();
         parent_animate = null;
-        for(var i = 0;i < this.name.children.length;i++){
-            name_children = this.name.children[i];
-            name_animate = new css_animate(name_children,this.attr[this.w][1][i],1);
-            if(i === this.name.children.length){name_animate.css_animate_init();}
+        setTimeout(function fu(){
+            name_children = font_name.children[i];
+            name_animate = new css_animate(name_children,font_attr[font_w][1][i],1);
+            if(i !== font_name.children.length-1)name_animate.css_animate_init();
             else {name_animate.css_animate_init(function () {
-                setTimeout(function(){
-                    font_name.style.cssText = font_attr[font_w][2][0];
-                    for(var s = 0;s < font_name.children.length;s++){
-                        font_name.children[s].style.cssText = font_attr[font_w][2][s+1];
-                    }
-                    name_animate = null;
-                },4000);
-            });}
-        }
+                setTimeout(function () {
+                    var ti = 0;
+                    requestAnimationFrame(function tim() {
+                        ti++;
+                        font_name.style.opacity = (1-ti*0.01).toString();
+                        if(ti<100)requestAnimationFrame(tim);
+                        else {
+                            for(var s = 0;s < font_name.children.length;s++){
+                                font_name.children[s].style.cssText = font_attr[font_w][2][s+1];
+                            }
+                            name_animate = null;
+                        }
+                    });
+                },500);
+            })}
+            i++;
+            if(i < font_name.children.length) setTimeout(fu,500);
+        },500);
     }
 }
