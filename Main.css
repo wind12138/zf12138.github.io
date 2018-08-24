@@ -6,16 +6,44 @@ body,html{
 	height:100%;
 }
 
-#MAIN{
-	height:100%;
-}
-
 *{
 	margin:0;
 	padding:0;
 }
 
+@media screen and (max-width: 1920px){
+	#MAIN{
+		position: relative;
+		height: 100%;
+	}
+	#Second{
+		width: 100%;
+		height: 0%;
+	}
+	#three{
+		width: 100%;
+		height: 0%;
+	}
+}
+@media screen and (max-width: 1080px ){
+	#MAIN{
+		position: relative;
+		height:40%;
+	}
+	#Second{
+		width: 100%;
+		height:30%;
+		background: #ffffd3;
+	}
+	#three{
+		width: 100%;
+		height: 30%;
+		background: #bdf2ff;
+	}
+}
+
 #bannar {
+	position: relative;
 	width: 100%;
 	height: 100%;
 }
@@ -27,8 +55,8 @@ body,html{
 	overflow: hidden;
 }
 #bannar div:first-child img{
-	width:auto;
-	height:auto;
+	width: 100%;
+	height: 100%;
 }
 #bannar div:nth-child(n+2){
 	position: absolute;
@@ -39,8 +67,8 @@ body,html{
 }
 #bannar div:nth-child(n+2) img{
 	position: relative;
-	width:auto;
-	height:auto;
+	width:500%;
+	height:100%;
 }
 
 .Nav{
@@ -72,7 +100,7 @@ body,html{
 	left:45%;
 }
 .Navs img{
-	margin-left: 15px;
+	margin-left: 10%;
 	width:15.5%;
 	height: 30.5%;
 }
@@ -158,9 +186,9 @@ body,html{
 #h1 div{
 	border-radius: 50px;
 	position: relative;
-	width: 0%;
+	width: 100%;
 	height: 100%;
-	left: 20%;
+	left: 100%;
 	background-color:rgba(146,146,146,0.65);
 }
 #h1 img{
@@ -188,7 +216,7 @@ body,html{
 	width:50%;
 	height:80%;
 	position: absolute;
-	left: 25%;
+	left: 30%;
 	top:15%;
 	opacity: 0;
  }
@@ -206,18 +234,20 @@ body,html{
 	left:5%;
 }
 #h2 p:nth-child(3){
+	width:10%;
 	left: 20%;
 }
 #h2 p:nth-child(2){
+	width:5%;
 	font-size: 3vw;
-	left:45%;
+	left:36%;
 }
 #h2 p:last-child{
 	width:10%;
 	height:13%;
 	background: url(img/strat.png);
 	background-size: 100% 100%;
-	left:45%;
+	left:35%;
 }
 
 #h3{

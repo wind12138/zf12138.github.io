@@ -21,7 +21,7 @@ function init_bannar(b_div,b_img) {
     var bannar_fistimg = document.querySelector("#bannar div img");
     var pro_bar = document.querySelector(".pro_bar div");
     var all_h = document.querySelectorAll(".all_h");
-    var Array_all_h_children_attr = [[[{transform:44,opacity:1}],[{opacity:1,left:-100},{opacity:1,left:80}],["opacity:0;transform:rotate(-45deg)","opacity:0;left:100%","opacity:0;left:-80%"]],[[{opacity:1}],[{width:100},{left:50},{bottom:-110},{bottom:-110}],["opacity:0","width:0%","left:-20%","bottom:200%","bottom:200%"]],[[{opacity:1}],[{opacity:1,top:20},{opacity:1,top:20},{opacity:1,top:20},{opacity:1,top:20}],["opacity:0","opacity:0,top:-20%","opacity:0,top:-20%","opacity:0,top:-20%","opacity:0,top:-20%"]],[[{opacity:1}],[{opacity:1},{opacity:1}],["opacity:0","opacity:0","opacity:0"]]];
+    var Array_all_h_children_attr = [[[{transform:44,opacity:1}],[{opacity:1,left:-100},{opacity:1,left:80}],["opacity:0;transform:rotate(-45deg)","opacity:0;left:100%","opacity:0;left:-80%"]],[[{opacity:1}],[{left:-80},{left:50},{bottom:-110},{bottom:-110}],["opacity:0","left:100%","left:-20%","bottom:200%","bottom:200%"]],[[{opacity:1}],[{opacity:1,top:20},{opacity:1,top:20},{opacity:1,top:20},{opacity:1,top:20}],["opacity:0","opacity:0,top:-20%","opacity:0,top:-20%","opacity:0,top:-20%","opacity:0,top:-20%"]],[[{opacity:1}],[{opacity:1},{opacity:1}],["opacity:0","opacity:0","opacity:0"]]];
     for(var i = 0;i < 5;i++) {
         b_img[i].src = imgs[0].src;
         if(i != 0){
@@ -103,7 +103,7 @@ function bannar_animate(di_an,ba_div,ba_img,fim,pr_an,all,fo_an){
         });
         fim.src = imgs[img_n].src;
         FB_animate(five_n,di_an,ba_div,ba_img,fim,pr_an,all,fo_an);
-    },4000);
+    },7000);
 }
 
 /*编写五个小的轮播*/
@@ -178,7 +178,7 @@ font_animate.prototype = {
                             name_animate = null;
                         }
                     });
-                },500);
+                },4500);
             })}
             i++;
             if(i < font_name.children.length) setTimeout(fu,500);
