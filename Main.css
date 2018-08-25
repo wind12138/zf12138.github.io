@@ -55,8 +55,9 @@ body,html{
 	#max p{
 		color: white;
 		position: absolute;
-		left: 46.5%;
+		left: 45.5%;
 		top: 51%;
+		font-size: 1.5vw;
 	}
 }
 @media screen and (max-width: 1080px ){
@@ -86,8 +87,9 @@ body,html{
 	#max p{
 		color: white;
 		position: absolute;
-		left: 41%;
+		left: 43%;
 		top: 50%;
+		font-size: 4.5vw;
 	}
 }
 
