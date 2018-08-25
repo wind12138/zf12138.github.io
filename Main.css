@@ -21,18 +21,8 @@ body,html{
 	top: 0%;
 	width: 100%;
 	height: 100%;
-	background: #b7fff7;
+	background: #77fffe;
 	z-index: 100;
-}
-
-#max_img{
-	position: absolute;
-	width: 5%;
-	height: 10%;
-	left: 45.5%;
-	top: 40%;
-	animation: LoadAn 3s;
-	animation-iteration-count: infinite;
 }
 
 @keyframes LoadAn {
@@ -53,6 +43,21 @@ body,html{
 		width: 100%;
 		height: 0%;
 	}
+	#max_img{
+		position: absolute;
+		width: 5%;
+		height: 10%;
+		left: 45.5%;
+		top: 40%;
+		animation: LoadAn 3s;
+		animation-iteration-count: infinite;
+	}
+	#max p{
+		color: white;
+		position: absolute;
+		left: 46.5%;
+		top: 51%;
+	}
 }
 @media screen and (max-width: 1080px ){
 	#MAIN{
@@ -61,13 +66,28 @@ body,html{
 	}
 	#Second{
 		width: 100%;
-		height:30%;
+		height:50%;
 		background: #ffffd3;
 	}
 	#three{
 		width: 100%;
-		height: 30%;
-		background: #bdf2ff;
+		height: 10%;
+		background: #d5fff0;
+	}
+	#max_img{
+		position: absolute;
+		width: 10%;
+		height: 8%;
+		left: 45.5%;
+		top: 40%;
+		animation: LoadAn 3s;
+		animation-iteration-count: infinite;
+	}
+	#max p{
+		color: white;
+		position: absolute;
+		left: 41%;
+		top: 50%;
 	}
 }
 
@@ -189,16 +209,16 @@ body,html{
 	
 }
 #h p:first-child{
-	font-family: "华文行楷";
-	font-size: 10vw;
-	line-height: 75%;
+	font-size: 6vw;
+	line-height: 100%;
 	left: 100%;
 	padding-left: 10%;
-	padding-right: 10%;
+
 }
 #h p:last-child{
 	font-size: 2vw;
 	left: -80%;
+	line-height: 200%;
 	padding-left: 25%;
 	
 }
@@ -234,11 +254,11 @@ body,html{
 }
 #h1 p:nth-child(3){
 	font-size: 0.5vw;
-	left:75%;
+	left:70%;
 }
 #h1 p:last-child{
-	font-family:"华文行楷";
-	font-size: 3vw;
+	left: 55%;
+	font-size: 2vw;
 }
 
 #h2 {
